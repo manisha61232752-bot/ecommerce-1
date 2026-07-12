@@ -20,7 +20,7 @@ const Home = () => {
         const productsRes = await api.get('/api/products?page=1'); // fetches newest page
         
         setCategories(categoriesRes.data);
-        setProducts(productsRes.data.products);
+        setProducts(Array.isArray(productsRes.data?.products) ? productsRes.data.products : []);
       } catch (err) {
         console.error('Error fetching homepage data:', err);
       } finally {
@@ -32,9 +32,9 @@ const Home = () => {
   }, []);
 
   // Filter products client side based on seeded properties
-  const featuredProducts = products.filter(p => p.isFeatured).slice(0, 4);
-  const trendingProducts = products.filter(p => p.isTrending).slice(0, 4);
-  const newArrivals = products.filter(p => p.isNewArrival).slice(0, 4);
+  const featuredProducts = (products || []).filter(p => p.isFeatured).slice(0, 4);
+  const trendingProducts = (products || []).filter(p => p.isTrending).slice(0, 4);
+  const newArrivals = (products || []).filter(p => p.isNewArrival).slice(0, 4);
 
   const getActiveTabProducts = () => {
     switch (activeTab) {
