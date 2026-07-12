@@ -120,8 +120,14 @@ export const CartProvider = ({ children }) => {
 
   // Compute Cart Totals dynamically
   const getCartTotals = () => {
-    const itemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-    const subtotal = cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+    const items = Array.isArray(cartItems) ? cartItems : [];
+
+    const itemsCount = items.reduce((acc, item) => acc + item.quantity, 0);
+
+    const subtotal = items.reduce(
+   (acc, item) => acc + ((item.product?.price || 0) * item.quantity),
+   0
+  );
     
     // Free shipping above $150, else flat $15 shipping fee
     const shipping = subtotal > 150 || subtotal === 0 ? 0 : 15.00;
