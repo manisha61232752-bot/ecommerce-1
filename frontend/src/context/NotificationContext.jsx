@@ -19,11 +19,12 @@ export const NotificationProvider = ({ children }) => {
 
     try {
       const { data } = await api.get('/api/notifications');
-      
-      const notifcationList = Array.isArray(data) ? data : [];
+
+      const notificationList = Array.isArray(data) ? data : [];
 
       setNotifications(notificationList);
-      setUnreadCount(noificationList.filter(n => !n.isRead).length);
+      setUnreadCount(notificationList.filter(n => !n.isRead).length);
+
     } catch (err) {
       console.error('Error fetching notifications:', err);
     }
