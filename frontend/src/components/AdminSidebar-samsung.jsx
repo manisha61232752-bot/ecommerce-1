@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, ShoppingBag, FolderTree, ClipboardList, Users, Shield } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, FolderTree, ClipboardList, Users, Shield, Bell } from 'lucide-react';
 
 const AdminSidebar = () => {
   const links = [
@@ -8,7 +8,8 @@ const AdminSidebar = () => {
     { to: '/admin/products', icon: ShoppingBag, text: 'Manage Products' },
     { to: '/admin/categories', icon: FolderTree, text: 'Manage Categories' },
     { to: '/admin/orders', icon: ClipboardList, text: 'Manage Orders' },
-    { to: '/admin/users', icon: Users, text: 'Manage Users' }
+    { to: '/admin/users', icon: Users, text: 'Manage Users' },
+    { to: '/admin/notifications', icon: Bell, text: 'Manage Notifications' }
   ];
 
   return (

@@ -26,6 +26,13 @@ import notificationRoutes from './routes/notificationRoutes.js';
 // Load environmental variables
 dotenv.config();
 
+// Suppress console logs in production environment
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.info = () => {};
+  console.warn = () => {};
+}
+
 // Connect to MongoDB
 connectDB();
 

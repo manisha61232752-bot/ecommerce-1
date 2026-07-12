@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useTheme } from '../context/ThemeContext';
-import { ShoppingCart, Heart, User, Search, Menu, X, LogOut, ShieldAlert, Sun, Moon } from 'lucide-react';
+import { useNotifications } from '../context/NotificationContext';
+import { ShoppingCart, Heart, User, Search, Menu, X, LogOut, ShieldAlert, Sun, Moon, Bell } from 'lucide-react';
 import api from '../utils/api';
 
 const Navbar = () => {
@@ -17,8 +18,11 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  
+  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -139,6 +143,75 @@ const Navbar = () => {
               )}
             </Link>
 
+            {/* Notifications Bell */}
+            {isAuthenticated && (
+              <div className="relative">
+                <button
+                  onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
+                  className="relative p-1.5 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer flex items-center justify-center"
+                  title="Notifications"
+                >
+                  <Bell className="h-6 w-6" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-rose-500 text-white font-bold text-[9px] w-4.5 h-4.5 flex items-center justify-center rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+
+                {/* Notifications Dropdown Panel */}
+                {notifDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-xl py-2 z-55 max-h-96 overflow-y-auto fade-in-up">
+                    <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                      <span className="font-bold text-sm text-slate-800 dark:text-slate-100">Notifications</span>
+                      {unreadCount > 0 && (
+                        <button
+                          onClick={() => {
+                            markAllAsRead();
+                            setNotifDropdownOpen(false);
+                          }}
+                          className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold hover:underline cursor-pointer"
+                        >
+                          Mark all read
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="divide-y divide-slate-50 dark:divide-slate-750">
+                      {notifications.length === 0 ? (
+                        <div className="px-4 py-6 text-center text-xs text-slate-400">
+                          No notifications yet
+                        </div>
+                      ) : (
+                        notifications.map(n => (
+                          <div
+                            key={n._id}
+                            onClick={() => {
+                              markAsRead(n._id);
+                              setNotifDropdownOpen(false);
+                            }}
+                            className={`px-4 py-2.5 transition-colors cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 ${!n.isRead ? 'bg-indigo-50/40 dark:bg-indigo-950/10' : ''}`}
+                          >
+                             <div className="flex justify-between items-start">
+                               <span className={`text-xs font-bold ${!n.isRead ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'}`}>
+                                 {n.title}
+                               </span>
+                               <span className="text-[9px] text-slate-400">
+                                 {new Date(n.createdAt).toLocaleDateString()}
+                               </span>
+                             </div>
+                             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
+                               {n.message}
+                             </p>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Admin Tag */}
             {isAdmin && (
               <Link to="/admin" className="flex items-center text-xs font-semibold px-2.5 py-1 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900 rounded-full hover:bg-amber-100 transition-colors">
@@ -171,7 +244,7 @@ const Navbar = () => {
                   className="flex items-center space-x-1 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-hidden"
                 >
                   <User className="h-5 w-5 mr-1 text-indigo-500" />
-                  <span>{user?.name?.split(' ')[0] || 'user'}</span>
+                  <span>{user && user.name ? user.name.split(' ')[0] : 'user'}</span>
                 </button>
 
                 {userDropdownOpen && (
@@ -223,6 +296,75 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
+
+            {/* Notifications Bell (Mobile) */}
+            {isAuthenticated && (
+              <div className="relative">
+                <button
+                  onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
+                  className="relative p-1.5 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  title="Notifications"
+                >
+                  <Bell className="h-6 w-6" />
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-rose-500 text-white font-bold text-[9px] w-4.5 h-4.5 flex items-center justify-center rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+
+                {/* Mobile Dropdown Panel */}
+                {notifDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-xl py-2 z-55 max-h-96 overflow-y-auto fade-in-up">
+                    <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                      <span className="font-bold text-sm text-slate-800 dark:text-slate-100">Notifications</span>
+                      {unreadCount > 0 && (
+                        <button
+                          onClick={() => {
+                            markAllAsRead();
+                            setNotifDropdownOpen(false);
+                          }}
+                          className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold hover:underline cursor-pointer"
+                        >
+                          Mark all read
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="divide-y divide-slate-50 dark:divide-slate-750">
+                      {notifications.length === 0 ? (
+                        <div className="px-4 py-6 text-center text-xs text-slate-400">
+                          No notifications yet
+                        </div>
+                      ) : (
+                        notifications.map(n => (
+                          <div
+                            key={n._id}
+                            onClick={() => {
+                              markAsRead(n._id);
+                              setNotifDropdownOpen(false);
+                            }}
+                            className={`px-4 py-2.5 transition-colors cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 ${!n.isRead ? 'bg-indigo-50/40 dark:bg-indigo-950/10' : ''}`}
+                          >
+                             <div className="flex justify-between items-start">
+                               <span className={`text-xs font-bold ${!n.isRead ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'}`}>
+                                 {n.title}
+                               </span>
+                               <span className="text-[9px] text-slate-400">
+                                 {new Date(n.createdAt).toLocaleDateString()}
+                               </span>
+                             </div>
+                             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
+                               {n.message}
+                             </p>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

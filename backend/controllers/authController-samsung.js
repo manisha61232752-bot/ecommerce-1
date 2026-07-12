@@ -26,7 +26,8 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    console.log(`\n[MAIL SERVICE MOCK] Registration verification link for ${user.email}:\n  http://localhost:5000/api/auth/verify-email/${verificationToken}\n`);
+    const verifyUrl = `${req.protocol}://${req.get('host')}/api/auth/verify-email/${verificationToken}`;
+    console.log(`\n[MAIL SERVICE MOCK] Registration verification link for ${user.email}:\n  ${verifyUrl}\n`);
 
     generateToken(res, user._id);
 
@@ -217,5 +218,5 @@ export const verifyEmail = asyncHandler(async (req, res) => {
   user.verificationToken = undefined;
   await user.save();
 
-  res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5174'}/login?verified=true`);
+  res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?verified=true`);
 });
