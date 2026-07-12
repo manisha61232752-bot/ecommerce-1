@@ -19,7 +19,7 @@ const Home = () => {
         const categoriesRes = await api.get('/api/categories');
         const productsRes = await api.get('/api/products?page=1'); // fetches newest page
         
-        setCategories(categoriesRes.data);
+        setCategories(Array.isArray(categoriesRes.data) ? categoriesRes.data : []);
         setProducts(Array.isArray(productsRes.data?.products) ? productsRes.data.products : []);
       } catch (err) {
         console.error('Error fetching homepage data:', err);
@@ -154,7 +154,7 @@ const Home = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {categories.map(category => (
+            {(Array.isArray(categories) ? categories : []).map(category => (
               <CategoryCard key={category._id} category={category} />
             ))}
           </div>
