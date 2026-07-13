@@ -38,13 +38,24 @@ app.use(helmet({
 }));
 
 // CORS setup
+const allowedOrigins = [
+  'https://mern-ecommerce-alpha-one.vercel.app',
+  'http://localhost:5173'
+];
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true, // Allow cookies to be sent
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
+  credentials: true,
   optionsSuccessStatus: 200
 };
-app.use(cors(corsOptions));
 
+app.use(cors(corsOptions));
 // Body Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

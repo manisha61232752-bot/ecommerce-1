@@ -21,6 +21,7 @@ const Home = () => {
         
         setCategories(Array.isArray(categoriesRes.data) ? categoriesRes.data : []);
         setProducts(Array.isArray(productsRes.data?.products) ? productsRes.data.products : []);
+        console.log("Products:", productsRes.data.products);
       } catch (err) {
         console.error('Error fetching homepage data:', err);
       } finally {
