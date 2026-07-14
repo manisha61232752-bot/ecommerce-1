@@ -160,21 +160,30 @@ const ProductDetails = () => {
           </div>
           
           {/* Gallery selector thumbnail list */}
-          {product.images.length > 1 && (
-            <div className="flex gap-3">
-              {product.images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveImage(img)}
-                  className={`h-20 w-20 rounded-xl overflow-hidden border bg-slate-50 ${
-                    activeImage === img ? 'border-indigo-600 ring-2 ring-indigo-50/50' : 'border-slate-200'
-                  }`}
-                >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
-                </button>
-              ))}
+          {product.images.map((img, idx) => {
+  const imageUrl = img.startsWith("/uploads")
+    ? `https://ecommerce-1-hxqt.onrender.com${img}`
+    : img;
+
+  return (
+    <button
+      key={idx}
+      onClick={() => setActiveImage(imageUrl)}
+      className={`h-20 w-20 rounded-xl overflow-hidden border bg-slate-50 ${
+        activeImage === imageUrl
+          ? "border-indigo-600 ring-2 ring-indigo-50/50"
+          : "border-slate-200"
+      }`}
+    >
+      <img
+        src={imageUrl}
+        alt=""
+        className="w-full h-full object-cover"
+      />
+    </button>
+  );
+})}
             </div>
-          )}
         </div>
 
         {/* Right Side: Details & Actions */}
