@@ -122,7 +122,7 @@ const AdminProducts = () => {
       description,
       category,
       price: Number(price),
-      originalprice: Number(originalprice),
+      originalPrice: Number(originalPrice),
       stock: Number(stock),
       images: [image],
       isFeatured,
