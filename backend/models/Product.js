@@ -47,8 +47,8 @@ const productSchema = new mongoose.Schema({
   },
   originalPrice: {
     type: Number,
-    required: [true, 'Product original price is required'],
-    min: [0, 'Original price must be positive']
+    required: [true, 'Product originalPrice is required'],
+    min: [0, 'OriginalPrice must be positive']
   },
   discountPercentage: {
     type: Number,
