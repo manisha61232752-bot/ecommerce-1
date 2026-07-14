@@ -360,7 +360,7 @@ const AdminProducts = () => {
                       className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-xl focus:outline-hidden focus:border-indigo-500"
                     />
                   </div>
-                  {/* Original Price */}
+                  {/* OriginalPrice */}
 <div className="space-y-1.5">
   <label className="font-bold text-slate-600 block">
     Original Price ($ USD) *
