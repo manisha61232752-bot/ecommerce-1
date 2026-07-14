@@ -20,6 +20,7 @@ const AdminProducts = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
+  const [originalPrice, setOriginalPrice] = useState('');
   const [stock, setStock] = useState('');
   const [image, setImage] = useState('');
   
@@ -121,6 +122,7 @@ const AdminProducts = () => {
       description,
       category,
       price: Number(price),
+      originalprice: Number(originalprice),
       stock: Number(stock),
       images: [image],
       isFeatured,
@@ -358,6 +360,20 @@ const AdminProducts = () => {
                       className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-xl focus:outline-hidden focus:border-indigo-500"
                     />
                   </div>
+                  {/* Original Price */}
+<div className="space-y-1.5">
+  <label className="font-bold text-slate-600 block">
+    Original Price ($ USD) *
+  </label>
+  <input
+    type="number"
+    step="0.01"
+    required
+    value={originalPrice}
+    onChange={(e) => setOriginalPrice(e.target.value)}
+    className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-xl focus:outline-hidden focus:border-indigo-500"
+  />
+</div>
 
                   {/* Stock */}
                   <div className="space-y-1.5">
