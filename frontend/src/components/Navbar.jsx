@@ -147,21 +147,24 @@ const Navbar = () => {
               </Link>
             )}
 
-            {/* Login and Signup buttons (ALWAYS visible on navbar near Shopping Cart) */}
-            <div className="flex items-center space-x-2">
-              <Link
-                to="/login"
-                className="text-xs font-bold border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
-              >
-                Log In
-              </Link>
-              <Link
-                to="/signup"
-                className="text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full transition-all shadow-xs cursor-pointer"
-              >
-                Sign Up
-              </Link>
-            </div>
+           {/* Login and Signup buttons (Show only when NOT logged in) */}
+{!isAuthenticated && (
+  <div className="flex items-center space-x-2">
+    <Link
+      to="/login"
+      className="text-xs font-bold border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
+    >
+      Log In
+    </Link>
+
+    <Link
+      to="/signup"
+      className="text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full transition-all shadow-xs cursor-pointer"
+    >
+      Sign Up
+    </Link>
+  </div>
+)}
 
             {/* User Dropdown */}
             {isAuthenticated && (
