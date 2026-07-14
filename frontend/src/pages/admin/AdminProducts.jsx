@@ -111,11 +111,11 @@ const AdminProducts = () => {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    if (!title || !brand || !description || !category || !price || !stock) {
-      return toast.error('Please enter all required fields');
-    }
+  e.preventDefault();
 
+  if (!title || !brand || !description || !category || !price || !originalPrice || !stock) {
+    return toast.error('Please enter all required fields');
+  }
     const payload = {
       title,
       brand,
