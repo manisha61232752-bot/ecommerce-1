@@ -134,6 +134,7 @@ export const createProduct = asyncHandler(async (req, res) => {
   const {
     title,
     price,
+    originalPrice,
     description,
     images,
     category,
@@ -148,6 +149,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     title,
     slug: slugify(title) + '-' + Date.now().toString().slice(-4),
     price,
+    originalPrice,
     description,
     images: images || ['/uploads/sample-placeholder.jpg'],
     category,
@@ -201,6 +203,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
       product.slug = slugify(title) + '-' + product._id.toString().slice(-4);
     }
     product.price = price !== undefined ? price : product.price;
+    product.originalPrice = originalPrice !== undefined ? originalPrice : product.originalPrice;
     product.description = description || product.description;
     product.images = images || product.images;
     product.category = category || product.category;
