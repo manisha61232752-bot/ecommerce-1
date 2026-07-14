@@ -25,10 +25,11 @@ const ProductCard = ({ product, isCompared, onCompare }) => {
   };
 
   // Safe image path checker
-  const imageUrl = product.images && product.images[0]
-    ? product.images[0]
-    : '/uploads/sample-placeholder.jpg';
-
+  const imageUrl =
+  product.images && product.images[0]
+    ? `https://ecommerce-1-hxqt.onrender.com${product.images[0]}`
+    : "https://ecommerce-1-hxqt.onrender.com/uploads/sample-placeholder.jpg";
+    
   const wishlisted = isWishlisted(product._id);
 
   return (
