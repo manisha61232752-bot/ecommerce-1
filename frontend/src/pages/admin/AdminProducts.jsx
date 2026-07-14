@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
 import AdminSidebar from '../../components/AdminSidebar';
-import { Plus, Edit2, Trash2, X, Upload } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Upload, SquareArrowOutUpRightIcon } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
 const AdminProducts = () => {
@@ -66,6 +66,7 @@ const AdminProducts = () => {
     setDescription('');
     setCategory(categories[0]?._id || '');
     setPrice('');
+    setOriginalPrice('');
     setStock('');
     setImage('/uploads/sample-placeholder.jpg');
     setIsFeatured(false);
@@ -470,7 +471,7 @@ const AdminProducts = () => {
                   </button>
                   <button
                     type="submit"
-                    abled={submitting}
+                    disabled={submitting}
                     className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 text-white font-bold px-6 py-2.5 rounded-xl shadow-xs"
                   >
                     {submitting ? 'Saving changes...' : 'Save Product'}
