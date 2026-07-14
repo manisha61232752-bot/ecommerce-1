@@ -470,7 +470,7 @@ const AdminProducts = () => {
                   </button>
                   <button
                     type="submit"
-                    disabled={submitting}
+                    abled={submitting}
                     className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 text-white font-bold px-6 py-2.5 rounded-xl shadow-xs"
                   >
                     {submitting ? 'Saving changes...' : 'Save Product'}
