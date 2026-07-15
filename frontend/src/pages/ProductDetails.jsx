@@ -132,8 +132,8 @@ const ProductDetails = () => {
 
   const wishlisted = isWishlisted(product._id);
 
-  return 
-    <div className="space-y-16 py-4"/>
+  return (
+    <div className="space-y-16 py-4">
   {/* Breadcrumbs */}
       <div className="text-xs text-slate-400 font-medium flex items-center space-x-1.5">
         <Link to="/" className="hover:text-slate-600">Home</Link>
@@ -144,6 +144,7 @@ const ProductDetails = () => {
         <span>/</span>
         <span className="text-slate-700 truncate">{product.title}</span>
       </div>
+  
 
       {/* Main product showcase */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -333,7 +334,7 @@ const ProductDetails = () => {
       </div>
 
       {/* Reviews Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-8 border-t border-slate-100"/>
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-8 border-t border-slate-100">
         
         {/* Reviews Left Column: Score breakdown */}
         <div className="space-y-6">
@@ -412,4 +413,9 @@ const ProductDetails = () => {
               </Link>
             </div>
           )}
-        </div>}
+        </div>
+        </section>
+        </div>
+        );
+      }
+      export default ProductDetails;
