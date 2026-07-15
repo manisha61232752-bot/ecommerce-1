@@ -24,6 +24,9 @@ const ProductDetails = () => {
   
   // Interface States
   const [activeImage, setActiveImage] = useState( "");
+  const imageUrl = activeImage?.startsWith("/uploads")
+  ? `https://ecommerce-1-hxqt.onrender.com${activeImage}`
+  : activeImage;
   useEffect(() => {
   if (product?.images?.length > 0) {
     setActiveImage(product.images[0]);
@@ -154,7 +157,7 @@ const ProductDetails = () => {
 
           <div className="aspect-square bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden shadow-xs relative">
             <img
-  src={activeImage || product.images?.[0]}
+  src={imageUrl || product.images?.[0]}
   alt={product.title}
   className="w-full h-full object-cover"
 />
