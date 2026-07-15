@@ -127,9 +127,9 @@ const ProductDetails = () => {
 
   const wishlisted = isWishlisted(product._id);
 
-  return (
-    <div className="space-y-16 py-4">
-      {/* Breadcrumbs */}
+  return 
+    <div className="space-y-16 py-4"/>
+  {/* Breadcrumbs */}
       <div className="text-xs text-slate-400 font-medium flex items-center space-x-1.5">
         <Link to="/" className="hover:text-slate-600">Home</Link>
         <span>/</span>
@@ -142,8 +142,10 @@ const ProductDetails = () => {
 
       {/* Main product showcase */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+
         {/* Left Side: Images */}
         <div className="space-y-4">
+
           <div className="aspect-square bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden shadow-xs relative">
             <img
               src={activeImage}
@@ -157,7 +159,8 @@ const ProductDetails = () => {
                 </span>
               </div>
             )}
-          
+          </div>
+
       {/* Gallery selector thumbnail list */}
 {product.images.length > 1 && (
   <div className="flex gap-3">
@@ -186,6 +189,8 @@ const ProductDetails = () => {
     })}
   </div>
 )}
+</div>
+
         {/* Right Side: Details & Actions */}
         <div className="space-y-6 flex flex-col justify-center">
           <div>
@@ -277,6 +282,7 @@ const ProductDetails = () => {
 
               {/* Buy Now button */}
               <button
+
                 onClick={handleBuyNow}
                 className="flex-1 w-full bg-amber-500 hover:bg-amber-600 text-white font-bold h-12 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md shadow-amber-900/10 cursor-pointer"
               >
@@ -321,7 +327,7 @@ const ProductDetails = () => {
       </div>
 
       {/* Reviews Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-8 border-t border-slate-100">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-8 border-t border-slate-100"/>
         
         {/* Reviews Left Column: Score breakdown */}
         <div className="space-y-6">
@@ -400,78 +406,4 @@ const ProductDetails = () => {
               </Link>
             </div>
           )}
-        </div>
-
-        {/* Reviews Right Column: Customer lists */}
-        <div className="lg:col-span-2 space-y-6">
-          {product.reviews.length === 0 ? (
-            <div className="p-12 text-center border border-dashed border-slate-200 rounded-3xl text-slate-500 text-xs">
-              No reviews have been written for this product yet. Be the first to write a review!
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {product.reviews.map((rev, idx) => (
-                <div key={idx} className="bg-white border border-slate-100 p-6 rounded-2xl space-y-3 shadow-xs">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-sm">{rev.name}</h4>
-                      <span className="text-[10px] text-slate-400 font-medium">
-                        {new Date(rev.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
-                      </span>
-                    </div>
-                    {/* Stars */}
-                    <div className="flex text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-3 w-3 ${
-                            i < rev.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-xs text-slate-600 leading-normal">{rev.comment}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-      </section>
-
-      {/* Related Products Section */}
-      {relatedProducts.length > 0 && (
-        <section className="space-y-6 pt-8 border-t border-slate-100">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-950">You May Also Like</h2>
-            <p className="text-xs text-slate-500 mt-1">Customers who viewed this item also bought these related products</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {relatedProducts.map(prod => (
-              <ProductCard key={prod._id} product={prod} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Recently Viewed Products Section */}
-      {recentlyViewed.length > 0 && (
-        <section className="space-y-6 pt-8 border-t border-slate-100">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-950">Recently Viewed</h2>
-            <p className="text-xs text-slate-500 mt-1">Products you viewed recently on our store</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {recentlyViewed.map(prod => (
-              <ProductCard key={prod._id} product={prod} />
-            ))}
-          </div>
-        </section>
-      )}
-
-    </div>
-  );
-};
-
-export default ProductDetails;
+        </div>}
