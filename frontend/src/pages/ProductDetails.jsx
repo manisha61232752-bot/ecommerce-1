@@ -23,7 +23,7 @@ const ProductDetails = () => {
   const [recentlyViewed, setRecentlyViewed] = useState([]);
   
   // Interface States
-  const [activeImage, setActiveImage] = useState(product.images?.[0] || "");
+  const [activeImage, setActiveImage] = useState( "");
   useEffect(() => {
   if (product?.images?.length > 0) {
     setActiveImage(product.images[0]);
