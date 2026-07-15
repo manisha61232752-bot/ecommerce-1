@@ -23,7 +23,12 @@ const ProductDetails = () => {
   const [recentlyViewed, setRecentlyViewed] = useState([]);
   
   // Interface States
-  const [activeImage, setActiveImage] = useState('');
+  const [activeImage, setActiveImage] = useState(product.images?.[0] || "");
+  useEffect(() => {
+  if (product?.images?.length > 0) {
+    setActiveImage(product.images[0]);
+  }
+}, [product]);
   const [quantity, setQuantity] = useState(1);
 
   // Manage Recently Viewed items in LocalStorage
@@ -148,10 +153,11 @@ const ProductDetails = () => {
 
           <div className="aspect-square bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden shadow-xs relative">
             <img
-              src={activeImage}
-              alt={product.title}
-              className="w-full h-full object-cover"
-            />
+  src={activeImage || product.images?.[0]}
+  alt={product.title}
+  className="w-full h-full object-cover"
+/>
+            
             {product.stock === 0 && (
               <div className="absolute inset-0 bg-white/70 backdrop-blur-xs flex items-center justify-center">
                 <span className="bg-slate-900 text-white font-bold text-xs px-4 py-2 rounded-full tracking-wider uppercase">
