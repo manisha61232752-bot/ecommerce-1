@@ -56,12 +56,12 @@ const productSchema = new mongoose.Schema({
     max: [100, 'Discount cannot exceed 100%'],
     default: 0
   },
-  : {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-     required: [true, 'Product category is required'],
+    ref: 'Category', 
+     required: [true, 'Product category is required']
   },
-  brand: {category
+  brand: {
     type: String,
     required: [true, 'Product brand is required'],
     trim: true
