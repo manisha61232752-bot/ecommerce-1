@@ -1,23 +1,42 @@
-import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '', // blank matches Vite local proxy, overrides in production env
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json'
+export const protect = asyncHandler(async (req, res, next) => {
+  let token;
+
+  if (req.cookies && req.cookies.token) {
+    token = req.cookies.token;
+
+    try {
+      const decoded = jwt.verify(
+        token,
+        process.env.JWT_SECRET || 'super_secret_jwt_encryption_key_for_production_1298471'
+      );
+
+      req.user = await User.findById(decoded.userId).select('-password');
+
+      if (!req.user) {
+        res.status(401);
+        throw new Error('User not found');
+      }
+
+      next();
+    } catch (error) {
+      res.status(401);
+      throw new Error('Not authorized, token failed');
+    }
+  } else {
+    res.status(401);
+    throw new Error('Not authorized, no token');
   }
 });
 
-// Response interceptor to handle session expirations globally
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    // If unauthorized, could clear local session states if needed
-    if (error.response && error.response.status === 401) {
-      console.warn('Session expired or unauthorized request.');
-    }
-    return Promise.reject(error);
+export const admin = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403);
+    throw new Error('Admin access only');
   }
-);
-
-export default api;
+};
