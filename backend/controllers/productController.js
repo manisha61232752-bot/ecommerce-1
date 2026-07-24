@@ -29,8 +29,8 @@ export const getProducts = asyncHandler(async (req, res) => {
         $or: [
           { title: { $regex: req.query.keyword, $options: 'i' } },
           { brand: { $regex: req.query.keyword, $options: 'i' } },
-          { description: { $regex: req.query.keyword, $options: 'i' } },
-          { category: { $regex: req.query.keyword, $options: 'i' } }
+          { description: { $regex: req.query.keyword, $options: 'i' } }
+          
         ]
       }
     : {};
