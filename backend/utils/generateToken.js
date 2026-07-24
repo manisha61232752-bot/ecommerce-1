@@ -12,6 +12,7 @@ const generateToken = (res, userId) => {
   httpOnly: true,
   secure: true,
   sameSite: 'none',
+  path: '/',
   maxAge: (Number(process.env.COOKIE_EXPIRES_IN) || 7) * 24 * 60 * 60 * 1000
 });
   
