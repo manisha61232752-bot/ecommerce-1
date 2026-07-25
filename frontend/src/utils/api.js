@@ -12,10 +12,7 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // If unauthorized, could clear local session states if needed
-    if (error.response && error.response.status === 401) {
-      console.warn('Session expired or unauthorized request.');
-    }
+    
     return Promise.reject(error);
   }
 );
