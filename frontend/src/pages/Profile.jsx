@@ -39,9 +39,14 @@ const Profile = () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
       return toast.error('Please enter all password details');
     }
-    if (newPassword.length < 6) {
-      return toast.error('New password must be at least 6 characters');
-    }
+    const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
+
+if (!passwordRegex.test(newPassword)) {
+  return toast.error('Password must be at least 8 characters and include uppercase, lowercase, number, and special character');
+} {
+  return toast.error('Password must be at least 8 characters and include uppercase, lowercase, number, and special character');
+}
     if (newPassword !== confirmPassword) {
       return toast.error('New passwords do not match');
     }
@@ -143,7 +148,7 @@ const Profile = () => {
               <label className="font-bold text-slate-600 block">New Password</label>
               <input
                 type="password"
-                placeholder="Minimum 6 characters"
+                placeholder="Minimum 8 characters with uppercase, lowercase, number & special character"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 className="w-full bg-slate-50 border border-slate-200 p-3 rounded-xl focus:outline-hidden focus:border-indigo-500"
