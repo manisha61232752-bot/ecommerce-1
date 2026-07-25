@@ -99,7 +99,7 @@ const Signup = () => {
           <div className="relative">
             <input
               type="password"
-              placeholder="Minimum 8 characters"
+              placeholder="Minimum 8 characters with uppercase, lowercase,number & special character"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
