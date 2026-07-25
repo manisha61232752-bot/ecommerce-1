@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { toast } from 'react-hot-toast';
 
- ProductCard = ({ product, isCompared, onCompare }) => {
+  const ProductCard = ({ product, isCompared, onCompare }) => {
   console.log("product ID:",product._id);
   const { addToCart } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
