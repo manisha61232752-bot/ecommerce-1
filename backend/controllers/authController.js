@@ -2,12 +2,20 @@ import crypto from 'crypto';
 import User from '../models/User.js';
 import generateToken from '../utils/generateToken.js';
 import asyncHandler from '../utils/asyncHandler.js';
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
 
 // @desc    Register a new user
 // @route   POST /api/auth/register
 // @access  Public
 export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
+  if (!passwordRegex.test(password)) {
+  res.status(400);
+  throw new Error(
+    'Password must be at least 8 characters and include uppercase, lowercase, number, and special character'
+  );
+}
 
   const userExists = await User.findOne({ email });
 
@@ -176,6 +184,12 @@ export const resetPassword = asyncHandler(async (req, res) => {
   }
 
   // Set new password
+  if (!passwordRegex.test(req.body.password)) {
+  res.status(400);
+  throw new Error(
+    'Password must be at least 8 characters and include uppercase, lowercase, number, and special character'
+  );
+}
   user.password = req.body.password;
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
@@ -193,6 +207,12 @@ export const changePassword = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user && (await user.matchPassword(currentPassword))) {
+    if (!passwordRegex.test(newPassword)) {
+  res.status(400);
+  throw new Error(
+    'Password must be at least 8 characters and include uppercase, lowercase, number, and special character'
+  );
+}
     user.password = newPassword;
     await user.save();
     res.json({ message: 'Password updated successfully' });

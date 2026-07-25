@@ -30,10 +30,13 @@ const userSchema = new mongoose.Schema({
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
   },
   password: {
-    type: String,
-    required: [true, 'Please provide a password'],
-    minlength: [6, 'Password must be at least 6 characters']
-  },
+  type: String,
+  required: [true, 'Please provide a password'],
+  match: [
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/,
+    'Password must be at least 8 characters and include uppercase, lowercase, number, and special character'
+  ]
+},
   role: {
     type: String,
     enum: ['customer', 'admin'],
