@@ -18,8 +18,8 @@ const ResetPassword = () => {
     if (!password || !confirmPassword) {
       return toast.error('Please enter all fields');
     }
-    if (password.length < 6) {
-      return toast.error('Password must be at least 6 characters');
+    if (password.length < 8) {
+      return toast.error('Password must be at least 8 characters');
     }
     if (password !== confirmPassword) {
       return toast.error('Passwords do not match');
@@ -54,7 +54,7 @@ const ResetPassword = () => {
           <div className="relative">
             <input
               type="password"
-              placeholder="Minimum 6 characters"
+              placeholder="Minimum 8 characters"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
