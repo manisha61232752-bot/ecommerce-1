@@ -30,9 +30,14 @@ const Signup = () => {
     if (!name || !email || !password || !confirmPassword) {
       return toast.error('Please fill in all registration fields');
     }
-    if (password.length < 8) {
-      return toast.error('Password must be at least 8 characters');
-    }
+    const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
+
+if (!passwordRegex.test(password)) {
+  return toast.error(
+    'Password must be at least 8 characters and include uppercase, lowercase, number and special character'
+  );
+}
     if (password !== confirmPassword) {
       return toast.error('Passwords do not match');
     }
@@ -99,7 +104,7 @@ const Signup = () => {
           <div className="relative">
             <input
               type="password"
-              placeholder="Minimum 8 characters with uppercase, lowercase,number & special character"
+              placeholder="Minimum 8 characters with uppercase, lowercase, number & special character"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
